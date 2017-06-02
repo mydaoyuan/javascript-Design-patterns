@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="mytest">
+    <form id="myform">
+      <label for="">
+        <span>用户名</span>
+        <input id="name" type="text" name="name">
+      </label>
+      <label for="">
+        <span>密码</span>
+        <input id="password" type="text" name="password">
+      </label>
+      <label for="">
+        <span>手机号</span>
+        <input id="mobile" type="text" name="mobile">
+      </label>
+    </form>
+  </div>
+  <script src="./straegies.js"></script>
+  <script type="text/javascript">
+    let name = document.getElementById('name')
+    let password = document.getElementById('password')
+    let mobile = document.getElementById('mobile')
+    let myform = document.getElementById('myform')
+
+    let mange = new Manage();
+    mange.add(name, [
+      {
+        strategy: 'isNonEmpty',
+        errMSG: 'name输入是空的'
+      },{
+        strategy: 'minLength:8',
+        errMSG: 'name输入要小于8位'
+      }
+    ])
+    mange.add(password, [
+      {
+        strategy: 'isNonEmpty',
+        errMSG: 'pass输入是空的'
+      },{
+        strategy: 'minLength:6',
+        errMSG: 'pass输入要小于6位'
+      }
+    ])
+    mange.add(mobile, [
+      {
+        strategy: 'isMobile',
+        errMSG: '不是手机号码'
+      }
+    ])
+    name.addEventListener('change', ()=> {
+      console.log(1)
+      let err = mange.start(name);
+      if (err) {
+        console.log(err)
+      }
+    })
+
+    password.addEventListener('change', ()=> {
+      console.log(1)
+      let err = mange.start();
+      if (err) {
+        console.log(err)
+      }
+    })
+
+    mobile.addEventListener('change', ()=> {
+      console.log(1)
+      let err = mange.start();
+      if (err) {
+        console.log(err)
+      }
+    })
+
+  </script>
+</body>
+</html>
